@@ -1,24 +1,24 @@
 from flask import Blueprint, request, jsonify
 from app.services.motivation_service import (
-    create_motivations,
-    get_all_motivations
+    create_fashion_advice,
+    get_all_fashion_advice
 )
 
 motivation_bp = Blueprint("motivation", __name__)
 
 @motivation_bp.route("/", methods=["GET"])
 def index():
-    return "API telah berjalan! Dibuat oleh Abdullah Ubaid"
+    return "API Fashion Stylist telah berjalan!"
     
 
-@motivation_bp.route("/motivations/generate", methods=["POST"])
+@motivation_bp.route("/fashion/generate", methods=["POST"])
 def generate():
     data = request.get_json()
-    theme = data.get("theme")
+    skin_tone = data.get("skin_tone")
     total = data.get("total")
 
-    if not theme:
-        return jsonify({"error": "Theme is required"}), 400
+    if not skin_tone:
+        return jsonify({"error": "Skin tone is required"}), 400
     
     if not total:
         return jsonify({"error": "Total is required"}), 400
@@ -30,10 +30,10 @@ def generate():
         return jsonify({"error": "Total maksimal harus 10"}), 400
 
     try:
-        result = create_motivations(theme, total)
+        result = create_fashion_advice(skin_tone, total)
 
         return jsonify({
-            "theme": theme,
+            "skin_tone": skin_tone,
             "total": len(result),
             "data": result
         })
@@ -42,11 +42,11 @@ def generate():
         return jsonify({"error": str(e)}), 500
 
 
-@motivation_bp.route("/motivations", methods=["GET"])
+@motivation_bp.route("/fashion", methods=["GET"])
 def get_all():
     page = request.args.get("page", default=1, type=int)
     per_page = request.args.get("per_page", default=100, type=int)
 
-    data = get_all_motivations(page=page, per_page=per_page)
+    data = get_all_fashion_advice(page=page, per_page=per_page)
 
     return jsonify(data)

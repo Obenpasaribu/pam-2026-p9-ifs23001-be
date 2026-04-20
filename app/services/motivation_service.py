@@ -4,31 +4,42 @@ from app.models.request_log import RequestLog
 from app.services.llm_service import generate_from_llm
 from app.utils.parser import parse_llm_response
 
-def create_motivations(theme: str, total: int):
+def create_fashion_advice(skin_tone: str, total: int):
     session = SessionLocal()
 
     try:
         prompt = f"""
-        Dalam format JSON, buat {total} kata-kata motivasi dengan tema "{theme}".
-        Format:
+        Anda adalah pakar fashion stylist. Dalam format JSON, buat {total} saran perpaduan warna pakaian yang sangat cocok untuk seseorang dengan warna kulit "{skin_tone}".
+        Setiap saran harus mencakup atribut berikut:
+        - Baju
+        - Celana
+        - Dalaman (Kaos dalam)
+        - Kaos kaki
+        - Sepatu
+        - Jaket atau Jas
+
+        Format JSON harus seperti ini:
         {{
             "motivations": [
-                {{"text": "..."}}
+                {{
+                    "text": "Baju: [warna], Celana: [warna], Dalaman: [warna], Kaos kaki: [warna], Sepatu: [warna], Jaket/Jas: [warna]"
+                }}
             ]
         }}
+        PENTING: Hanya berikan JSON, jangan ada teks penjelasan lain. Gunakan bahasa Indonesia.
         """
 
         result = generate_from_llm(prompt)
-        motivations = parse_llm_response(result)
+        recommendations = parse_llm_response(result)
 
-        # save request log
-        req_log = RequestLog(theme=theme)
+        # save request log (menggunakan field theme untuk menyimpan skin_tone)
+        req_log = RequestLog(theme=skin_tone)
         session.add(req_log)
         session.commit()
 
         saved = []
 
-        for item in motivations:
+        for item in recommendations:
             text = item.get("text")
 
             m = Motivation(
@@ -50,7 +61,7 @@ def create_motivations(theme: str, total: int):
         session.close()
 
 
-def get_all_motivations(page: int = 1, per_page: int = 100):
+def get_all_fashion_advice(page: int = 1, per_page: int = 100):
     session = SessionLocal()
 
     try:
