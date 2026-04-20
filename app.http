@@ -1,0 +1,95 @@
+
+## Global Variables
+@baseurl=http://127.0.0.1:5000
+
+## Generate Motivation
+# @name PostGenerateMotivation
+POST {{baseurl}}/motivations/generate
+Content-Type: application/json
+
+{
+  "theme": "belajar",
+  "total": 5
+}
+###
+
+## Response PostGenerateMotivation
+{
+  "data": [
+    "Setiap halaman yang kamu baca, setiap soal yang kamu selesaikan, adalah satu langkah lebih dekat ke impianmu.",
+    "Belajar bukan tentang kesempurnaan, tapi tentang kemajuan. Rayakan setiap sedikit pemahaman baru.",
+    "Pengetahuan adalah satu-satunya harta yang semakin banyak kamu berikan, semakin banyak yang kamu miliki.",
+    "Hari ini mungkin terasa sulit, tapi ingat: pohon oak yang kuat pun berawal dari biji yang kecil.",
+    "Jangan takut salah, takutlah jika berhenti mencoba. Setiap kesalahan adalah guru terbaik."
+  ],
+  "theme": "belajar",
+  "total": 5
+}
+###
+
+## Get Motivation
+# @name GetMotivations
+GET {{baseurl}}/motivations?page=1&per_page=10
+Content-Type: application/json
+###
+
+## Response GetMotivations
+{
+  "data": [
+    {
+      "created_at": "2026-04-11T11:35:35.327888",
+      "id": 13,
+      "text": "Jangan takut salah, takutlah jika berhenti mencoba. Setiap kesalahan adalah guru terbaik."
+    },
+    {
+      "created_at": "2026-04-11T11:35:35.327888",
+      "id": 12,
+      "text": "Hari ini mungkin terasa sulit, tapi ingat: pohon oak yang kuat pun berawal dari biji yang kecil."
+    },
+    {
+      "created_at": "2026-04-11T11:35:35.327888",
+      "id": 11,
+      "text": "Pengetahuan adalah satu-satunya harta yang semakin banyak kamu berikan, semakin banyak yang kamu miliki."
+    },
+    {
+      "created_at": "2026-04-11T11:35:35.327888",
+      "id": 10,
+      "text": "Belajar bukan tentang kesempurnaan, tapi tentang kemajuan. Rayakan setiap sedikit pemahaman baru."
+    },
+    {
+      "created_at": "2026-04-11T11:35:35.327888",
+      "id": 9,
+      "text": "Setiap halaman yang kamu baca, setiap soal yang kamu selesaikan, adalah satu langkah lebih dekat ke impianmu."
+    },
+    {
+      "created_at": "2026-04-11T11:09:11.289852",
+      "id": 8,
+      "text": "Pikiran yang terus dipupuk dengan ilmu akan selalu tumbuh, bahkan di tanah yang paling keras sekalipun."
+    },
+    {
+      "created_at": "2026-04-11T11:09:11.289852",
+      "id": 7,
+      "text": "Konsistensi dalam belajar, sekecil apapun, lebih berharga daripada usaha yang besar tapi hanya sesekali."
+    },
+    {
+      "created_at": "2026-04-11T11:09:11.289852",
+      "id": 6,
+      "text": "Belajar hari ini adalah investasi untuk semua impian yang akan kamu raih di masa depan."
+    },
+    {
+      "created_at": "2026-04-11T11:09:11.289852",
+      "id": 5,
+      "text": "Jangan takut salah, karena dari kesalahan itu ilmu yang sesungguhnya akan melekat erat dalam ingatanmu."
+    },
+    {
+      "created_at": "2026-04-11T11:09:11.289852",
+      "id": 4,
+      "text": "Setiap halaman yang kamu baca, setiap soal yang kamu pecahkan, adalah satu langkah lebih dekat ke versi terbaik dirimu."
+    }
+  ],
+  "page": 1,
+  "per_page": 10,
+  "total": 13,
+  "total_pages": 2
+}
+###
